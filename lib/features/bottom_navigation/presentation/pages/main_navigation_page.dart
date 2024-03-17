@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:musicy/features/music/presentation/pages/home_page.dart';
 import 'package:musicy/features/search/presentation/pages/search_page.dart';
 
 import '../cubit/bottom_navigation_cubit.dart';
@@ -45,9 +46,9 @@ class MainNavigationPage extends StatelessWidget {
       body: BlocBuilder<BottomNavigationCubit, int>(
         builder: (context, state) {
           if (state == 0) {
-            return Text("Home");
+            return const HomePage();
           } else {
-            return SearchPage();
+            return const SearchPage();
           }
         },
       ),

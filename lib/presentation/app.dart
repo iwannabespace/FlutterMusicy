@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
+import 'package:musicy/features/music/presentation/cubit/music_cubit.dart';
 
 import '../di/injection_container.dart';
 import '../features/bottom_navigation/presentation/cubit/bottom_navigation_cubit.dart';
@@ -15,6 +16,9 @@ class MusicyApp extends StatelessWidget {
       providers: [
         BlocProvider<BottomNavigationCubit>(
           create: (context) => getIt<BottomNavigationCubit>(),
+        ),
+        BlocProvider<MusicCubit>(
+          create: (context) => getIt<MusicCubit>(),
         ),
       ],
       child: MaterialApp.router(

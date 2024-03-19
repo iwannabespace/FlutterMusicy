@@ -49,4 +49,15 @@ class MusicRepositoryImpl implements MusicRepository {
       return const Left(ServerFailure("No internet connection!"));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Music>>> getAllMusics() async {
+    try {
+      final musics = await musicLocalDataSource.getAllMusics();
+      return Right(musics);
+    } catch (error) {
+      return const Left(
+          CacheFailure("Some problem occured relating the cache!"));
+    }
+  }
 }

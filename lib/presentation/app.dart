@@ -18,7 +18,7 @@ class MusicyApp extends StatelessWidget {
           create: (context) => getIt<BottomNavigationCubit>(),
         ),
         BlocProvider<MusicCubit>(
-          create: (context) => getIt<MusicCubit>(),
+          create: (context) => getIt<MusicCubit>()..getAllMusics(),
         ),
       ],
       child: MaterialApp.router(

@@ -78,15 +78,9 @@ class MusicRemoteDataSourceImpl implements MusicRemoteDataSource {
     }
     await output.close();
 
-    print("Path: $path");
-    print("Other: ${dir.path}/$name.wav");
-
     final result =
         await FFmpegKit.execute('-i "$path" "${dir.path}/$name.wav"');
     final returnCode = await result.getReturnCode();
-
-    print("Done");
-    print(returnCode!.getValue());
 
     if (ReturnCode.isSuccess(returnCode)) {
       return Music(

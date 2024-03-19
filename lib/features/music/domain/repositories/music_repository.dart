@@ -12,4 +12,5 @@ abstract class MusicRepository {
     required String mediumThumbnailUrl,
     required String highThumbnailUrl,
   });
+  Future<Either<Failure, List<Music>>> getAllMusics();
 }

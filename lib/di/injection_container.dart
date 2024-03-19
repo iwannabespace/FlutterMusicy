@@ -11,6 +11,7 @@ import 'package:musicy/features/music/data/repositories/music_repository_impl.da
 import 'package:musicy/features/music/domain/entities/music.dart';
 import 'package:musicy/features/music/domain/repositories/music_repository.dart';
 import 'package:musicy/features/music/domain/usecases/download_music_usecase.dart';
+import 'package:musicy/features/music/domain/usecases/get_all_musics_usecase.dart';
 import 'package:musicy/features/music/presentation/cubit/music_cubit.dart';
 
 import '../features/bottom_navigation/presentation/cubit/bottom_navigation_cubit.dart';
@@ -55,9 +56,11 @@ Future<void> setup() async {
 
   getIt.registerFactory<DownloadMusicUseCase>(
       () => DownloadMusicUseCase(musicRepository: getIt()));
+  getIt.registerFactory<GetAllMusicsUseCase>(
+      () => GetAllMusicsUseCase(musicRepository: getIt()));
 
   getIt.registerLazySingleton<BottomNavigationCubit>(
       () => BottomNavigationCubit());
-  getIt.registerLazySingleton<MusicCubit>(
-      () => MusicCubit(downloadMusicUseCase: getIt()));
+  getIt.registerLazySingleton<MusicCubit>(() =>
+      MusicCubit(downloadMusicUseCase: getIt(), getAllMusicsUseCase: getIt()));
 }

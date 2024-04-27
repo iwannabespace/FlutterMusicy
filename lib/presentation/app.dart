@@ -4,6 +4,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:go_router/go_router.dart';
 import 'package:musicy/features/music/presentation/cubit/music_cubit.dart';
 
+import 'package:musicy/features/youtube_search/presentation/cubit/youtube_search_cubit.dart';
+
 import '../di/injection_container.dart';
 import '../features/bottom_navigation/presentation/cubit/bottom_navigation_cubit.dart';
 
@@ -18,13 +20,20 @@ class MusicyApp extends StatelessWidget {
           create: (context) => getIt<BottomNavigationCubit>(),
         ),
         BlocProvider<MusicCubit>(
-          create: (context) => getIt<MusicCubit>()..getAllMusics(),
+          create: (context) => getIt<MusicCubit>(),
+        ),
+        BlocProvider<YoutubeSearchCubit>(
+          create: (context) => getIt<YoutubeSearchCubit>(),
         ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
+          scaffoldBackgroundColor: Colors.black,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.black,
+          ),
           // colorScheme: lightColorScheme,
           // extensions: [lightCustomColors],
         ),

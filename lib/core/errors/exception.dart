@@ -8,6 +8,13 @@ class CacheException implements Exception {
   final String message;
 }
 
+class InternetException implements Exception {}
+
+class EnvironmentException implements Exception {
+  EnvironmentException({required this.message});
+  final String message;
+}
+
 class MusicCancelException implements Exception {
   MusicCancelException({required this.message});
   final String message;

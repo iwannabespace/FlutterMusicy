@@ -23,13 +23,15 @@ class MusicAdapter extends TypeAdapter<Music> {
       defaultThumbnailUrl: fields[3] as String,
       mediumThumbnailUrl: fields[4] as String,
       highThumbnailUrl: fields[5] as String,
+      path: fields[6] as String,
+      liked: fields[7] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Music obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +43,11 @@ class MusicAdapter extends TypeAdapter<Music> {
       ..writeByte(4)
       ..write(obj.mediumThumbnailUrl)
       ..writeByte(5)
-      ..write(obj.highThumbnailUrl);
+      ..write(obj.highThumbnailUrl)
+      ..writeByte(6)
+      ..write(obj.path)
+      ..writeByte(7)
+      ..write(obj.liked);
   }
 
   @override

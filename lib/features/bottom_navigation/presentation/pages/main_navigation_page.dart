@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:musicy/features/music/presentation/pages/home_page.dart';
-import 'package:musicy/features/search/presentation/pages/search_page.dart';
+import 'package:musicy/features/music/presentation/cubit/music_cubit.dart';
+
+import 'package:musicy/presentation/pages/home_page.dart';
+import 'package:musicy/presentation/pages/library_page.dart';
+import 'package:musicy/presentation/pages/search_page.dart';
 
 import '../cubit/bottom_navigation_cubit.dart';
 
@@ -12,17 +15,14 @@ class MainNavigationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "MUSICY",
-          style: TextStyle(),
-        ),
-      ),
       bottomNavigationBar: BlocBuilder<BottomNavigationCubit, int>(
         builder: (context, index) => BottomNavigationBar(
-          selectedLabelStyle: const TextStyle(),
-          unselectedLabelStyle: const TextStyle(),
+          backgroundColor: const Color.fromARGB(255, 16, 16, 16),
+          unselectedItemColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          iconSize: 20,
+          selectedLabelStyle: const TextStyle(fontSize: 12),
+          unselectedLabelStyle: const TextStyle(fontSize: 12),
           onTap: (value) {
             context.read<BottomNavigationCubit>().navigateTo(value);
           },
@@ -32,23 +32,33 @@ class MainNavigationPage extends StatelessWidget {
               icon: Icon(
                 FontAwesomeIcons.house,
               ),
-              label: "Anasayfa",
+              label: "Ana sayfa",
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 FontAwesomeIcons.magnifyingGlass,
               ),
-              label: "Arama",
+              label: "Ara",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                FontAwesomeIcons.book,
+              ),
+              label: "Kitaplığım",
             ),
           ],
         ),
       ),
       body: BlocBuilder<BottomNavigationCubit, int>(
-        builder: (context, state) {
-          if (state == 0) {
+        builder: (context, page) {
+          if (page == 0) {
+            BlocProvider.of<MusicCubit>(context).getAllMusics();
             return const HomePage();
-          } else {
+          } else if (page == 1) {
             return const SearchPage();
+          } else {
+            BlocProvider.of<MusicCubit>(context).getAllMusics();
+            return const LibraryPage();
           }
         },
       ),

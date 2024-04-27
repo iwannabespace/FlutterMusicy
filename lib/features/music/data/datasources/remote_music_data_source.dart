@@ -83,6 +83,9 @@ class MusicRemoteDataSourceImpl implements MusicRemoteDataSource {
     final returnCode = await result.getReturnCode();
 
     if (ReturnCode.isSuccess(returnCode)) {
+      final file = File(path);
+      file.deleteSync();
+
       return Music(
         id: videoId,
         name: name,
@@ -90,6 +93,8 @@ class MusicRemoteDataSourceImpl implements MusicRemoteDataSource {
         defaultThumbnailUrl: defaultThumbnailUrl,
         mediumThumbnailUrl: mediumThumbnailUrl,
         highThumbnailUrl: highThumbnailUrl,
+        path: "${dir.path}/$name.wav",
+        liked: false,
       );
     } else if (ReturnCode.isCancel(returnCode)) {
       throw MusicCancelException(message: "Music convertion cancelled!");

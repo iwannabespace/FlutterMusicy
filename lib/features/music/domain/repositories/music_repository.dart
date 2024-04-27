@@ -13,4 +13,7 @@ abstract class MusicRepository {
     required String highThumbnailUrl,
   });
   Future<Either<Failure, List<Music>>> getAllMusics();
+  Future<Either<Failure, Null>> likeMusic({required String id});
+  Future<Either<Failure, Null>> unlikeMusic({required String id});
+  Future<Either<Failure, bool>> isMusicDownloaded({required String id});
 }

@@ -60,4 +60,34 @@ class MusicRepositoryImpl implements MusicRepository {
           CacheFailure("Some problem occured relating the cache!"));
     }
   }
+
+  @override
+  Future<Either<Failure, Null>> likeMusic({required String id}) async {
+    final music = await musicLocalDataSource.getMusic(id: id);
+
+    if (music != null) {
+      music.liked = true;
+      return const Right(null);
+    } else {
+      return const Left(CacheFailure("Music couldn't be found!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Null>> unlikeMusic({required String id}) async {
+    final music = await musicLocalDataSource.getMusic(id: id);
+
+    if (music != null) {
+      music.liked = false;
+      return const Right(null);
+    } else {
+      return const Left(CacheFailure("Music couldn't be found!"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> isMusicDownloaded({required String id}) async {
+    final result = await musicLocalDataSource.isMusicDownloaded(id: id);
+    return Right(result);
+  }
 }
